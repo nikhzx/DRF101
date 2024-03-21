@@ -8,3 +8,9 @@ class StudentSerializer(serializers.Serializer):
 
     def create_data(self, validated_data):
         return Student.objects.create(**validated_data)
+    
+    def create(self, validated_data):
+        """
+        Create and return a new `Student` instance, given the validated data.
+        """
+        return Student.objects.create(**validated_data)
