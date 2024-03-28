@@ -20,5 +20,5 @@ from app import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("studetail/", views.student_api),
+    path("studetapi/", views.student_api),
 ]
