@@ -1,7 +1,8 @@
+from http.client import UNSUPPORTED_MEDIA_TYPE
 import requests
 import json
 
-URL = "http://127.0.0.1:8000/studetapi/"
+URL = "http://127.0.0.1:8000/studentapi/"
 
 def get_data(id = None):
     '''
@@ -32,4 +33,21 @@ def post_data():
     res = r.json()
     print(res)
 
-post_data()
+# post_data()
+    
+def update_data():
+    '''
+    App for PUT Method
+    '''
+    data = {
+        'id':9,
+        # 'name':"Bheem", 
+        # 'city':"Kurukshetra",
+        'roll':13
+    }
+    json_data = json.dumps(data)
+    r = requests.put(url = URL, data = json_data)
+    res = r.json() 
+    print(res)
+
+update_data()

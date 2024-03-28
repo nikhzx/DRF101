@@ -1,3 +1,4 @@
+from functools import partial
 import http, io, json
 from django.shortcuts import render
 from requests import request
@@ -39,6 +40,18 @@ def student_api(request):
             return HttpResponse(json_data, content_type='application/json')
         json_data = JSONRenderer().render(serializer.errors)
         return HttpResponse(json_data, content_type='application/json')
-
-
-
+    
+    if request.method == "PUT":
+        json_data = request.body
+        stream = io.BytesIO(json_data)
+        python_data = JSONParser().parse(stream)
+        id = python_data.get('id')
+        stu = Student.objects.get(id=id)
+        serializer = StudentSerializer(stu, data=python_data, partial=True) #Here partial = True is used for partial modification
+        if serializer.is_valid():
+            serializer.save()
+            msg = {'message':'Data Updated'}
+            jsondata = JSONRenderer().render(msg)
+            return HttpResponse(jsondata, content_type = 'application/json')
+        jsondata = JSONRenderer().render(serializer.errors)
+        return HttpResponse(jsondata, content_type = 'application/json')    
