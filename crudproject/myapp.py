@@ -1,4 +1,3 @@
-from http.client import UNSUPPORTED_MEDIA_TYPE
 import requests
 import json
 
@@ -50,4 +49,16 @@ def update_data():
     res = r.json() 
     print(res)
 
-update_data()
+# update_data()
+    
+def delete_data():
+    '''
+    App for DELETE method
+    '''
+    data = {'id':8}
+    json_data = json.dumps(data)
+    r = requests.delete(url=URL, data=json_data)
+    res = r.json()
+    print(res)
+
+delete_data()
