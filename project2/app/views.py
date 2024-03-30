@@ -64,6 +64,9 @@ class StudentAPI(View):
         stream = io.BytesIO(json_data)  
         python_data = JSONParser().parse(stream)
         id = python_data.get("id", None)
+        # for i in id:
+        #     stu = Student.objects.get(id=i)
+        #     stu.delete()
         stu = Student.objects.get(id=id)
         stu.delete()
         msg = {'msg':"Data Deleted"}
