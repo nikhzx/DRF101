@@ -23,16 +23,16 @@ def post_data():
     App for POST Method
     '''
     data = {
-        'name': "Nikhil",
-        'roll': "21",
-        'city': "Prayagraj"
+        'name': "Noikhil",
+        'roll': 21,
+        'city': "Prayag"
     }
     json_data = json.dumps(data)
     r = requests.post(url = URL, data = json_data)
     res = r.json()
     print(res)
 
-# post_data()
+post_data()
     
 def update_data():
     '''
@@ -40,16 +40,16 @@ def update_data():
     '''
     data = {
         'id':15,
-        'name':"Nikhil", 
+        'name':"Jiya", 
         'city':"Prayagraj",
-        'roll':14
+        'roll':201
     }
     json_data = json.dumps(data)
     r = requests.put(url = URL, data = json_data)
     res = r.json() 
     print(res)
 
-update_data()
+# update_data()
     
 def delete_data():
     '''

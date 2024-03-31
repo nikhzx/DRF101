@@ -9,12 +9,34 @@ class StudentSerializer(serializers.ModelSerializer):
     Validations are auto Created, no need to create Manually.
     create() and update() function for POST and PUT is auto implemented.
     '''
+    #Validator 3rd Type
+    def start_with_n(value):
+        if value[0].lower()!='n':
+            raise serializers.ValidationError("Name Should start with N")
+        return value
+        
     # name = serializers.CharField(read_only = True)
+    name = serializers.CharField(validators=[start_with_n])
     class Meta:
         model = Student
         fields = ['id', 'name', 'roll', 'city']
         # read_only_fields = ['name', 'roll']
-        extra_kwargs = {'name':{"read_only": True}, 'roll':{'read_only':True}}
+        # extra_kwargs = {'name':{"read_only": True}, 'roll':{'read_only':True}}
+
+    #Field Level Validator for Model Serializer
+    def validate_roll(self, value):
+        if value>=200:
+            raise serializers.ValidationError("Seat Full: Admissions Stopped for Course")
+        return value
+    
+    #Object Level Validator for Model Serializer
+    def validate(self, data):
+        nm = data.get("name")
+        ct = data.get("city")
+        if nm.lower()=="nikhil" and ct.lower()!="prayagraj":
+            raise serializers.ValidationError("For Nikhil, City must be Prayagraj")
+        return data
+
 
 # #Validators
 # def start_with_n(value):
