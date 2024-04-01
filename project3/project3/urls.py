@@ -4,5 +4,5 @@ from app import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("studentapi/", views.main_function),
+    path("studentapi/", views.student_api),
 ]
