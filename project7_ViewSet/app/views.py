@@ -5,6 +5,13 @@ from rest_framework import viewsets, status
 
 class StudentViewSet(viewsets.ViewSet):
     def list(self, request):
+        print("**************list***************")
+        print("Basename:", self.basename)
+        print("Action:", self.action)
+        print("Detail:", self.detail)
+        print("Suffix:", self.suffix)
+        print("Name:", self.name)
+        print("Description:", self.description)
         stu = Student.objects.all()
         serializer = StudentSerializer(stu, many= True)
         return Response(serializer.data, status=status.HTTP_200_OK)
