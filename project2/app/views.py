@@ -12,7 +12,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
 #Class Based View
-@method_decorator(csrf_exempt, name = 'dispatch') #When you use @method_decorator(csrf_exempt, name='dispatch'), it means that the csrf_exempt decorator should be applied to the dispatch method of the class-based view.The dispatch method in Django class-based views is responsible for routing incoming HTTP requests to the appropriate method (e.g., get, post, put, delete, etc.) based on the HTTP method used in the request. By applying csrf_exempt decorator to the dispatch method, you are exempting the view from CSRF (Cross-Site Request Forgery) protection.
+@method_decorator(csrf_exempt, name = 'dispatch') #When you use @method_decorator(csrf_exempt, name='dispatch'), 
+#it means that the csrf_exempt decorator should be applied to the dispatch method of the class-based view.
+# The dispatch method in Django class-based views is responsible for routing incoming HTTP requests to the appropriate method (e.g., get, post, put, delete, etc.) 
+# based on the HTTP method used in the request. By applying csrf_exempt decorator to the dispatch method, you are exempting the view from CSRF (Cross-Site Request Forgery) protection.
 class StudentAPI(View):
     def get(self, request, *args, **kwargs):
         json_data = request.body
