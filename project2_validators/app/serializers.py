@@ -3,6 +3,39 @@ from rest_framework import serializers
 from .models import Student
 
 #This has Validators Implemented
+
+# When working with Django REST Framework's ModelSerializer, validation occurs through a combination of automatic and customizable processes. Here's a breakdown of how different validation types are called:
+
+# 1. Model-Level Validation:
+
+# Django Model Constraints:
+# The ModelSerializer automatically inherits validation rules defined in your Django model. This includes constraints like max_length, unique, null, and blank. If your model has these constraints, the serializer will enforce them.
+# Model's clean() method:
+# If your Django model has a clean() method, it will be called during the validation process. This allows you to perform custom model-level validation that involves multiple fields.
+
+# 2. Serializer-Level Validation:
+
+# Field-Level Validation:
+    # validate_<field_name>() methods: You can define methods in your serializer class with the name validate_<field_name>, where <field_name> is the name of the field. These methods are called specifically to validate that individual field.
+    # Built-in Validators: DRF provides built-in validators for various field types (e.g., EmailValidator, URLValidator). These are automatically applied based on the field type.
+# Object-Level Validation:
+    # validate() method: You can override the validate() method in your serializer class to perform validation that involves multiple fields or the entire object. This is useful for enforcing business logic that depends on the combined values of multiple fields.   
+# Unique Validators:
+    # DRF provides validators like UniqueValidator and UniqueTogetherValidator to enforce uniqueness constraints at the serializer level. These are useful for ensuring that data is unique within a table or across multiple fields.
+
+# How the Process Works:
+    # Incoming Data:
+    # When data is sent to the API, the serializer receives it.
+    # Field Validation:
+    # The serializer first validates each individual field. This includes checking data types, applying built-in validators, and calling validate_<field_name>() methods.   
+    # Object Validation:
+    # If all field validations pass, the serializer then calls the validate() method to perform object-level validation.
+    # Model Validation (if applicable):
+    # If the data is being used to create or update a model instance, the model's clean() method is called.
+    # Saving Data:
+    # If all validations pass, the serializer proceeds to save the data to the database.
+    
+
 #Model Serializer
 class StudentSerializer(serializers.ModelSerializer):
     '''
@@ -25,13 +58,13 @@ class StudentSerializer(serializers.ModelSerializer):
         # extra_kwargs = {'name':{"read_only": True}, 'roll':{'read_only':True}}
 
     #Field Level Validator for Model Serializer
-    def validate_roll(self, value):
+    def validate_roll(self, value): #Here naming should be as validate_fieldName
         if value>=200:
             raise serializers.ValidationError("Seat Full: Admissions Stopped for Course")
         return value
     
     #Object Level Validator for Model Serializer
-    def validate(self, data):
+    def validate(self, data): #validate func is overwritten for  Object Level Validation
         nm = data.get("name")
         ct = data.get("city")
         if nm.lower()=="nikhil" and ct.lower()!="prayagraj":
