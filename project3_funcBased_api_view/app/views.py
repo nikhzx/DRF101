@@ -29,7 +29,7 @@ def student_api(request, pk=None):
     
     if request.method=='POST':
         serializer = StudentSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(): #validation check here
             serializer.save()
             return Response({'msg':"Data Created"}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

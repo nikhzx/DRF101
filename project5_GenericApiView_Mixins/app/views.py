@@ -19,14 +19,14 @@ class LCStudentAPI(GenericAPIView, ListModelMixin, CreateModelMixin):
 #     queryset = Student.objects.all()
 #     serializer_class = StudentSerializer
 
-#     def get(self, request, *args, **kwargs):
+#     def get(self, request, *args, **kwargs): #Action methods are defined for generic API View
 #         return self.list(request, *args, **kwargs)
 
 # class StudentCreate(GenericAPIView, CreateModelMixin):
 #     queryset = Student.objects.all()
 #     serializer_class = StudentSerializer
 
-#     def post(self, request, *args, **kwargs):
+#     def post(self, request, *args, **kwargs): #Action methods are defined for generic API View
 #         return self.create(request, *args, **kwargs)
     
 #Retrieve, Update & Destroy - pk is Required (Group API)
